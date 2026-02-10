@@ -1,0 +1,1 @@
+search.py contains search_candidates, which uses SQL to search the Vector DB for candidates.

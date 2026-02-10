@@ -1,0 +1,47 @@
+# Job roles
+engineer
+developer
+designer
+manager
+analyst
+architect
+consultant
+specialist
+
+# Actions
+find
+search
+show
+get
+looking for
+need
+hire
+recruit
+
+# Technologies
+python
+javascript
+react
+node
+java
+aws
+docker
+kubernetes
+sql
+
+# Levels
+senior
+junior
+mid-level
+lead
+principal
+staff
+
+# Other
+candidate
+candidates
+experience
+years
+skills
+resume
+portfolio
