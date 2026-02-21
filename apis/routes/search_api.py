@@ -5,9 +5,9 @@ import sys, os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_root)
 
-from Chatbot.gen_ai.retriever.search import search_candidates
-from Chatbot.gen_ai.schemas.candidate_schema import CandidateSearchResult
-from Chatbot.gen_ai.schemas.search_schema import CandidateSearchParams
+from backend.retrieval.search import search_candidates
+from backend.schema.candidate_schema import CandidateSearchResult
+from backend.schema.search_schema import CandidateSearchParams
 
 router = APIRouter(prefix="/search", tags=["search"])
 

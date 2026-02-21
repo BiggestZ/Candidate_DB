@@ -1,4 +1,4 @@
-from config import LLMProvider, LLMTask
+from llm.config import LLMProvider, LLMTask
 from llm.router import get_llm_for_task
 
 class LLMClient:

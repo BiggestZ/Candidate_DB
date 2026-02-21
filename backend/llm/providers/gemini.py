@@ -1,5 +1,6 @@
-import google.generativeai as genai
+import google.genai as genai
 from llm.base import BaseLLMClient
+from dotenv import load_dotenv
 
 class GeminiClient(BaseLLMClient):
     def __init__(self, config):

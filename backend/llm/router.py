@@ -1,4 +1,4 @@
-from config import DEFAULT_MODELS, LLMProvider, LLMTask
+from llm.config import DEFAULT_MODELS, LLMProvider, LLMTask
 from llm.providers.openai import OpenAIClient
 from llm.providers.anthropic import AnthropicClient
 from llm.providers.gemini import GeminiClient

@@ -1,5 +1,8 @@
 from anthropic import Anthropic
 from llm.base import BaseLLMClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class AnthropicClient(BaseLLMClient):
     def __init__(self, config):

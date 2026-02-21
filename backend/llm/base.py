@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from config import ModelConfig
+from llm.config import ModelConfig
 
 """Abstract class to allow different provicers to borrow from format."""
 class BaseLLMClient(ABC):

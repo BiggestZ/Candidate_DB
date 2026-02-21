@@ -32,7 +32,7 @@ class ModelConfig(BaseModel):
 # Define how model type/parameters change for different task types.
 DEFAULT_MODELS: dict[LLMProvider, dict[LLMTask, ModelConfig]] = {
     LLMProvider.OPENAI: {
-        LLMTask.intent: ModelConfig(
+        LLMTask.INTENT: ModelConfig(
             provider=LLMProvider.OPENAI,
             model_name="gpt-4.1-mini",
             temperature=0.0,
@@ -46,7 +46,7 @@ DEFAULT_MODELS: dict[LLMProvider, dict[LLMTask, ModelConfig]] = {
         )
     },
     LLMProvider.ANTHROPIC: {
-        LLMTask.intent: ModelConfig(
+        LLMTask.INTENT: ModelConfig(
             provider=LLMProvider.OPENAI,
             model_name="claude-3-haiku",
             temperature=0.0,

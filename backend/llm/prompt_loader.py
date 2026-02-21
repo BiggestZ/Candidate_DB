@@ -3,7 +3,7 @@ from jinja2 import Template
 from typing import List
 
 # Access the prompts folder
-PROMPT_ROOT = Path("Chatbot/gen_ai/prompts")
+PROMPT_ROOT = Path("backend/prompts")
 #print(PROMPT_ROOT)
 
 # *args: collects extra positional arguments into tuple

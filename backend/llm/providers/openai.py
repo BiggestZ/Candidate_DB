@@ -1,10 +1,14 @@
 from openai import OpenAI
 from llm.base import BaseLLMClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class OpenAIClient(BaseLLMClient):
     def __init__(self, config):
         super().__init__(config)
-        self.client = OpenAI()
+        self.client = OpenAI(api_key=os.getenv("OPENAI"))
 
     def complete(self, prompt: str) -> str:
         response = self.client.responses.create(

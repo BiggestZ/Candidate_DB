@@ -41,7 +41,7 @@ Database will be available at: `localhost:5432`
 
 ### Terminal 1: Start the API
 ```bash
-cd /Users/Zahir/Desktop/Candidate_DB
+cd relative_path../Candidate_DB
 
 # Start FastAPI server
 uvicorn apis.main:app --reload --port 8000
@@ -53,10 +53,10 @@ API will be at: http://localhost:8000
 
 ### Terminal 2: Start Streamlit
 ```bash
-cd /Users/Zahir/Desktop/Candidate_DB
+cd relative_path../Candidate_DB
 
 # Start Streamlit app
-streamlit run Chatbot/gen_ai/interface/ui/app.py
+streamlit run frontend/streamlit_app.py
 ```
 
 App will open at: http://localhost:8501
