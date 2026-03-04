@@ -1,12 +1,8 @@
-import os, sys
-project_root=os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_root)
-
-from agents.base import BaseAgent
-from retrieval.search import search_candidates
-from schema.intent_schema import Intent
-from agents.types import AgentAction, AgentResult
-from evaluator.app_logger import setup_logger
+from backend.agents.base import BaseAgent
+from backend.retrieval.search import search_candidates
+from backend.schema.intent_schema import Intent
+from backend.agents.types import AgentAction, AgentResult
+from backend.evaluator.app_logger import setup_logger
 
 logger = setup_logger(__name__, level=10)  # DEBUG level
 
@@ -18,7 +14,7 @@ class RetrievalAgent(BaseAgent):
         if not intent.search_params:
             logger.warning("⚠️ No search parameters provided in intent")
             return AgentResult(
-                action=AgentAction.SEARCH_CANDIDATES,
+                action=AgentAction.SEARCH,
                 data=[],
                 message="No search parameters provided."
             )
@@ -38,7 +34,7 @@ class RetrievalAgent(BaseAgent):
         except Exception as e:
             logger.error(f"✗ Error during candidate search: {e}", exc_info=True)
             return AgentResult(
-                action=AgentAction.SEARCH_CANDIDATES,
+                action=AgentAction.SEARCH,
                 data=[],
                 message="An error occurred during search. Please try again."
             )

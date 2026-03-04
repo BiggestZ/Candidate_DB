@@ -1,9 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
-import sys, os
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-sys.path.insert(0, project_root)
 
 from backend.retrieval.search import search_candidates
 from backend.schema.candidate_schema import CandidateSearchResult

@@ -1,18 +1,30 @@
-import os, sys
-project_root=os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_root)
-
-from agents.base import BaseAgent
-from agents.retrieval_agent import RetrievalAgent
-from agents.types import AgentAction, AgentResult
-from llm.client import LLMClient
-from llm.config import LLMProvider, LLMTask
-from llm.prompt_loader import load_prompt
-from llm.response_parser import parse_llm_json, LLMResponseError
-from schema.intent_schema import Intent, IntentType
-from evaluator.app_logger import setup_logger
+from backend.agents.base import BaseAgent
+from backend.agents.retrieval_agent import RetrievalAgent
+from backend.agents.types import AgentAction, AgentResult
+from backend.llm.client import LLMClient
+from backend.llm.config import LLMProvider, LLMTask
+from backend.llm.prompt_loader import load_prompt
+from backend.intent.intent_router import detect_intent
+from backend.schema.intent_schema import IntentType
+from backend.service.candidate_stats import get_candidate_count
+from backend.evaluator.app_logger import setup_logger
+import re
 
 logger = setup_logger(__name__, level=10)  # DEBUG level
+
+
+def _is_database_count_query(user_message: str) -> bool:
+    normalized = user_message.lower()
+    has_count_phrase = bool(
+        re.search(r"\b(how many|number of|count)\b", normalized)
+    )
+    has_subject = bool(
+        re.search(r"\b(candidates?|people|profiles?)\b", normalized)
+    )
+    has_scope = bool(
+        re.search(r"\b(database|db|in (the )?system|in total)\b", normalized)
+    )
+    return has_count_phrase and has_subject and has_scope
 
 class ChatAgent(BaseAgent):
     def __init__(self, provider: LLMProvider):
@@ -28,40 +40,38 @@ class ChatAgent(BaseAgent):
     def run(self, user_message: str) -> AgentResult:
         logger.info(f"🤖 ChatAgent.run() called with message: '{user_message[:100]}...'")
 
+        if _is_database_count_query(user_message):
+            logger.info("📊 Candidate count query detected")
+            try:
+                total = get_candidate_count()
+                noun = "candidate" if total == 1 else "candidates"
+                return AgentResult(
+                    action=AgentAction.CHAT,
+                    message=f"There are currently {total} {noun} in the database."
+                )
+            except Exception as e:
+                logger.error(f"✗ Failed to fetch candidate count: {e}", exc_info=True)
+                return AgentResult(
+                    action=AgentAction.CHAT,
+                    message="I can't access database counts right now. Please try again shortly."
+                )
+
         try:
-            # Load prompt
-            logger.debug("Loading intent classification prompt...")
-            prompt = load_prompt(
-                "intent/intent.txt",
-                schema=Intent,
-                user_message=user_message
-            )
-            logger.debug(f"Prompt loaded, length: {len(prompt)} chars")
-
-            # Run LLM given task and prompt
-            logger.debug("Calling LLM for intent classification...")
-            raw = self.llm.run(
-                task=LLMTask.INTENT,
-                prompt=prompt
-            )
-            logger.debug(f"LLM response received: {raw[:200]}...")
-
-            # Parse intent from raw LLM Output
-            logger.debug("Parsing LLM response to Intent object...")
-            intent = parse_llm_json(raw, Intent)
+            logger.debug("Detecting intent via unified intent router...")
+            intent = detect_intent(user_message)
             logger.info(f"✓ Intent parsed: {intent.intent.value} (confidence: {intent.confidence})")
-
-        except LLMResponseError as e:
-            logger.error(f"✗ Failed to parse LLM response: {e}", exc_info=True)
-            return AgentResult(
-                action=AgentAction.UNKNOWN,
-                message="I could not understand the request. Please try again."
-            )
         except Exception as e:
             logger.error(f"✗ Unexpected error in intent classification: {e}", exc_info=True)
             return AgentResult(
                 action=AgentAction.UNKNOWN,
                 message="An error occurred. Please try again."
+            )
+
+        if intent.intent == IntentType.unknown:
+            logger.info("❓ Unknown/ambiguous intent detected")
+            return AgentResult(
+                action=AgentAction.UNKNOWN,
+                message="I wasn't fully sure what you meant. Ask a recruiting question like 'find senior Python engineers in NYC' or ask a general assistant question."
             )
 
         # If intent is search, run retrieval agent

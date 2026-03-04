@@ -1,14 +1,8 @@
 from pathlib import Path
-import os, sys
 
-project_root=os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-# print(project_root)
-sys.path.insert(0, project_root)
-
-from database.connection import get_conn
+from connection import get_conn
 
 MIGRATIONS_DIR = Path(__file__).parent / "migrations"
-print(MIGRATIONS_DIR)
 
 def run_migrations():
     with get_conn() as conn:
@@ -44,7 +38,7 @@ def drop_tables():
             cur.execute("DROP TABLE IF EXISTS candidate_resume CASCADE")
     print("Tables dropped.")
 
-#if __name__ == "__main__":
-    #run_migrations()
+if __name__ == "__main__":
+    run_migrations()
     #drop_tables()
     

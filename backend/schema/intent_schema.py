@@ -1,17 +1,12 @@
 from enum import Enum
-from typing import Literal, Optional
-from pydantic import BaseModel, Field
-import os, sys
-
-project_root=os.path.abspath(os.path.join(os.path.dirname(__file__)))
-# print("ROOT: ",project_root)
-sys.path.insert(0, project_root)
-
-from search_schema import CandidateSearchParams
+from typing import Optional
+from pydantic import BaseModel, Field, model_validator
+from backend.schema.search_schema import CandidateSearchParams
 
 class IntentType(str, Enum):
     search = "search"
     chat = "chat"
+    unknown = "unknown"
 
 class IntentSource(str, Enum):
     keyword = "keyword"
@@ -41,4 +36,13 @@ class Intent(BaseModel):
         None,
         description="Contains all data needed for search if intent is search."
     )
-    
+
+    @model_validator(mode="after")
+    def validate_search_params(self) -> "Intent":
+        if self.intent == IntentType.search:
+            if self.search_params is None:
+                raise ValueError("search_params is required when intent is 'search'.")
+        else:
+            if self.search_params is not None:
+                raise ValueError("search_params must be null unless intent is 'search'.")
+        return self

@@ -1,7 +1,7 @@
-from llm.config import DEFAULT_MODELS, LLMProvider, LLMTask
-from llm.providers.openai import OpenAIClient
-from llm.providers.anthropic import AnthropicClient
-from llm.providers.gemini import GeminiClient
+from backend.llm.config import DEFAULT_MODELS, LLMProvider, LLMTask
+from backend.llm.providers.openai import OpenAIClient
+from backend.llm.providers.anthropic import AnthropicClient
+from backend.llm.providers.gemini import GeminiClient
 
 def get_llm_for_task(provider: LLMProvider, task: LLMTask):
     model_config = DEFAULT_MODELS[provider][task]

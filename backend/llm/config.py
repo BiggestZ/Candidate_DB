@@ -47,13 +47,13 @@ DEFAULT_MODELS: dict[LLMProvider, dict[LLMTask, ModelConfig]] = {
     },
     LLMProvider.ANTHROPIC: {
         LLMTask.INTENT: ModelConfig(
-            provider=LLMProvider.OPENAI,
+            provider=LLMProvider.ANTHROPIC,
             model_name="claude-3-haiku",
             temperature=0.0,
             max_tokens=1000
         ),
         LLMTask.CHAT: ModelConfig(
-            provider=LLMProvider.OPENAI,
+            provider=LLMProvider.ANTHROPIC,
             model_name="claude-sonnet-4-5-1106",
             temperature=0.7,
             max_tokens=1000

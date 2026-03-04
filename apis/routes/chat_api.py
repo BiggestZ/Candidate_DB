@@ -1,11 +1,7 @@
 from fastapi import APIRouter, HTTPException
-import os, sys
 import traceback
 
 router = APIRouter(prefix="/chat", tags=['chat'])
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-sys.path.insert(0, project_root)
 
 from backend.agents.chat_agent import ChatAgent
 from backend.schema.chat_schema import ChatMessage, ChatResponse
