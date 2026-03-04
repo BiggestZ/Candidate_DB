@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from apis.routes.health_api import router as health_router
 from apis.routes.chat_api import router as chat_router
 from apis.routes.search_api import router as search_router
+from apis.routes.candidates_api import router as candidates_router
 
 app = FastAPI(
     title="Candidate DB API",
@@ -24,6 +25,7 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(search_router)
+app.include_router(candidates_router)
 
 @app.get("/")
 async def root():
@@ -33,6 +35,7 @@ async def root():
         "endpoints": [
             "/health - Health check",
             "/chat - AI chat interface with intent classification",
-            "/search - Direct candidate search"
+            "/search - Direct candidate search",
+            "/candidates - Candidate create/update/delete"
         ]
     }

@@ -12,11 +12,18 @@ SELECT
     c.id,
     c.full_name,
     c.email,
+    c.recent_role AS role,
     c.location,
-    c.seniority,
+    c.years_experience,
+    c.github_url,
+    c.linkedin_url,
+    c.website_url,
+    c.created_at,
+    cp.skills,
     sm.similarity
 FROM semantic_matches sm
 JOIN candidates c ON c.id = sm.candidate_id
+JOIN candidate_profiles cp ON cp.candidate_id = c.id
 WHERE (:location IS NULL OR c.location = :location)
-  AND (:seniority IS NULL OR c.seniority = :seniority)
+  AND (:role IS NULL OR c.recent_role = :role)
 ORDER BY sm.similarity DESC;

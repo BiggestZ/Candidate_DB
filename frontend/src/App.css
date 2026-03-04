@@ -1,37 +1,87 @@
-.chat-layout {
+.app-layout {
   min-height: 100vh;
   width: 100%;
-  display: grid;
-  place-items: center;
   background:
     radial-gradient(circle at top right, rgba(84, 81, 255, 0.25), transparent 40%),
     radial-gradient(circle at top left, rgba(99, 214, 255, 0.2), transparent 35%),
     #070a16;
-  padding: 1.5rem;
-  box-sizing: border-box;
+  color: #f8fafc;
 }
 
-.chat-shell {
-  width: min(920px, 100%);
-  height: min(90vh, 900px);
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(2, 6, 23, 0.86);
+  backdrop-filter: blur(10px);
+}
+
+.top-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.8rem 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #dbeafe;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-links button {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.75);
+  color: #cbd5e1;
+  border-radius: 999px;
+  padding: 0.4rem 0.78rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-links button.active {
+  color: #f8fafc;
+  border-color: rgba(56, 189, 248, 0.75);
+  background: linear-gradient(135deg, rgba(14, 116, 144, 0.85), rgba(37, 99, 235, 0.85));
+}
+
+.page-shell {
+  max-width: 1100px;
+  margin: 1rem auto 0;
+  padding: 0 1rem 1rem;
+}
+
+.chat-page,
+.candidate-form-shell,
+.candidate-manage-shell {
   background: rgba(17, 24, 39, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 22px;
-  box-shadow: 0 30px 80px rgba(5, 6, 16, 0.6);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(5, 6, 16, 0.55);
   backdrop-filter: blur(10px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  overflow: hidden;
 }
 
 .chat-header {
-  padding: 1.2rem 1.5rem;
+  padding: 1.1rem 1.2rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .chat-header h1 {
   margin: 0.25rem 0;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
 }
 
 .eyebrow {
@@ -52,9 +102,129 @@
   padding: 0.22rem 0.62rem;
 }
 
+.candidate-form-shell,
+.candidate-manage-shell {
+  padding: 1rem 1.2rem;
+}
+
+.candidate-form-shell h2,
+.candidate-manage-shell h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.04rem;
+  color: #dbeafe;
+}
+
+.candidate-form,
+.candidate-search-form,
+.candidate-edit-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.candidate-form input,
+.candidate-form textarea,
+.candidate-search-form input,
+.candidate-edit-form input,
+.candidate-edit-form textarea {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+  padding: 0.55rem 0.65rem;
+  font: inherit;
+}
+
+.candidate-form textarea,
+.candidate-edit-form textarea {
+  grid-column: 1 / span 2;
+  resize: vertical;
+}
+
+.candidate-form button,
+.candidate-search-form button,
+.candidate-edit-form button,
+.manage-actions button {
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background: linear-gradient(135deg, #0f766e, #0e9f6e);
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 42px;
+}
+
+.manage-actions .danger {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+}
+
+.candidate-form button:disabled,
+.candidate-search-form button:disabled,
+.candidate-edit-form button:disabled,
+.manage-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.candidate-status {
+  margin: 0.65rem 0 0;
+  font-size: 0.84rem;
+  color: #c7f9cc;
+}
+
+.manage-results-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.manage-candidate-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 12px;
+  padding: 0.65rem;
+}
+
+.manage-candidate-card h3 {
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.manage-candidate-card p {
+  margin: 0.2rem 0 0.55rem;
+  color: rgba(191, 219, 254, 0.95);
+}
+
+.manage-candidate-card ul {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.manage-actions {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+}
+
+.candidate-edit-form {
+  margin-top: 0.9rem;
+}
+
+.candidate-edit-form h3 {
+  grid-column: 1 / -1;
+  margin: 0 0 0.25rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
 .message-feed {
   overflow: auto;
-  padding: 1.5rem;
+  min-height: 56vh;
+  max-height: 62vh;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
@@ -130,9 +300,10 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 0.7rem;
-  padding: 1rem 1.4rem 1.3rem;
+  padding: 1rem 1.2rem 1.2rem;
   border-top: 1px solid rgba(148, 163, 184, 0.2);
   background: rgba(15, 23, 42, 0.7);
+  border-radius: 0 0 18px 18px;
 }
 
 .composer textarea {
@@ -211,17 +382,37 @@
   }
 }
 
-@media (max-width: 700px) {
-  .chat-layout {
-    padding: 0;
+@media (max-width: 900px) {
+  .top-nav-inner {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
   }
 
-  .chat-shell {
-    height: 100vh;
-    border-radius: 0;
+  .api-pill {
+    justify-self: start;
+  }
+
+  .candidate-form,
+  .candidate-search-form,
+  .candidate-edit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .candidate-form textarea,
+  .candidate-edit-form textarea {
+    grid-column: auto;
+  }
+
+  .manage-results-grid {
+    grid-template-columns: 1fr;
   }
 
   .message {
     max-width: 100%;
+  }
+
+  .message-feed {
+    min-height: 50vh;
+    max-height: 58vh;
   }
 }

@@ -3,8 +3,7 @@ from jinja2 import Template
 from typing import List
 
 # Access the prompts folder
-PROMPT_ROOT = Path("backend/prompts")
-#print(PROMPT_ROOT)
+PROMPT_ROOT = Path(__file__).resolve().parents[1] / "prompts"
 
 # *args: collects extra positional arguments into tuple
 # **kwargs: Collects keyword args into dict

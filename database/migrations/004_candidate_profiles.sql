@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS candidate_profiles (
-    candidate_id UUID PRIMARY KEY REFERENCES candidate_resume(id) ON DELETE CASCADE,
+    candidate_id UUID PRIMARY KEY REFERENCES candidates(id) ON DELETE CASCADE,
     summary TEXT NOT NULL,
     skills TEXT NOT NULL,
     experience_years INT,

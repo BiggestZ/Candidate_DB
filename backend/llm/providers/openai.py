@@ -1,5 +1,5 @@
 from openai import OpenAI
-from llm.base import BaseLLMClient
+from backend.llm.base import BaseLLMClient
 from dotenv import load_dotenv
 import os
 

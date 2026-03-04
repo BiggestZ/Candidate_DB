@@ -1,5 +1,5 @@
-from llm.config import LLMProvider, LLMTask
-from llm.router import get_llm_for_task
+from backend.llm.config import LLMProvider, LLMTask
+from backend.llm.router import get_llm_for_task
 
 class LLMClient:
     def __init__(self, provider: LLMProvider):

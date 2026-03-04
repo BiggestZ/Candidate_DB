@@ -1,5 +1,5 @@
 from anthropic import Anthropic
-from llm.base import BaseLLMClient
+from backend.llm.base import BaseLLMClient
 from dotenv import load_dotenv
 
 load_dotenv()
