@@ -7,6 +7,10 @@ analyst
 architect
 consultant
 specialist
+scientist
+recruiter
+qa
+product manager
 
 # Actions
 find
@@ -17,6 +21,12 @@ looking for
 need
 hire
 recruit
+source
+shortlist
+screen
+match
+filter
+identify
 
 # Technologies
 python
@@ -28,6 +38,11 @@ aws
 docker
 kubernetes
 sql
+golang
+typescript
+machine learning
+data engineering
+postgres
 
 # Levels
 senior
@@ -45,3 +60,10 @@ years
 skills
 resume
 portfolio
+applicant
+talent
+profile
+profiles
+remote
+onsite
+hybrid

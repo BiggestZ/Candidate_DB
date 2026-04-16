@@ -1,7 +1,7 @@
 [project]
 name = "candidate-db"
 version = "0.1.0"
-description = "Add your description here"
+description = "A RAG Chatbot that allows users to add, remove, and edit candidates. Users can use the search to find the best fit candidate for a given role."
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 dependencies = [
